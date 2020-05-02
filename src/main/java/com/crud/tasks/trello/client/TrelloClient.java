@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -42,12 +44,15 @@ public class TrelloClient {
          return url;
     }
 
-    public Optional<List<TrelloBoardDto>> getTrelloBoards() {
+    public List<Optional<TrelloBoardDto>> getTrelloBoards() {
 
         String url = getURL().toString();
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
+        List<Optional<TrelloBoardDto>> optionalList = Arrays.asList(boardsResponse).stream()
+                .map(Optional::ofNullable)
+                .collect(Collectors.toList());
 
-        return Optional.ofNullable(Arrays.asList(boardsResponse));
+        return optionalList;
 
     }
 
