@@ -11,6 +11,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -41,16 +42,13 @@ public class TrelloClient {
          return url;
     }
 
-    public List<TrelloBoardDto> getTrelloBoards() {
+    public Optional<List<TrelloBoardDto>> getTrelloBoards() {
 
         String url = getURL().toString();
-
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 
-        if (boardsResponse != null) {
-            return Arrays.asList(boardsResponse);
-        }
-        return new ArrayList<>();
+        return Optional.ofNullable(Arrays.asList(boardsResponse));
+
     }
 
 }
