@@ -5,23 +5,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.util.UriBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
+import java.net.URI;
 
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class TrelloBoardDto {
+@Getter
+public class TrelloCardDto {
 
-    @JsonProperty("id")
-    private String id;
-
-    @JsonProperty("name")
     private String name;
+    private String description;
+    private String pos;
+    private String listId;
 
-    @JsonProperty("lists")
-    private List<TrelloListDto> lists;
 
 
 }
