@@ -1,9 +1,6 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.CreatedTrelloCard;
-import com.crud.tasks.domain.Task;
-import com.crud.tasks.domain.TaskDto;
-import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import com.crud.tasks.trello.client.TrelloClient;
@@ -58,5 +55,8 @@ public class TaskController {
         service.saveTask(taskMapper.mapToTask(taskDto));
     }
 
-
+    @RequestMapping(method = RequestMethod.GET, value = "getTrelloBoards")
+    public List<TrelloBoardDto> getTrelloBoards() {
+        return trelloClient.getTrelloBoards();
+    }
 }
