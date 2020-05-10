@@ -32,13 +32,14 @@ public class TrelloClient {
     @Autowired
     private TrelloConfig trelloConfig;
 
+
     private URI getURL() {
 
          URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/members/" + trelloConfig.getUserName() + "/boards")
                 .queryParam("key", trelloConfig.getTrelloAppKey())
                 .queryParam("token", trelloConfig.getTrelloToken())
-                .queryParam("lists", "all")
-                .queryParam("fields", "name,id").build().encode().toUri();
+                .queryParam("fields", "name,id")
+                .queryParam("lists", "all").build().encode().toUri();
 
          return url;
     }
@@ -53,7 +54,6 @@ public class TrelloClient {
         } catch (RestClientException e) {
             LOGGER.error(e.getMessage(),e);
             return new ArrayList<>();
-
         }
     }
 
