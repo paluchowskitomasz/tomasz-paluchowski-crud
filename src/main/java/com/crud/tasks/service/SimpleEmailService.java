@@ -17,28 +17,30 @@ public class SimpleEmailService {
     private JavaMailSender javaMailSender;
 
 
-
-    public void send(Mail mail){
+    public void send(Mail mail) {
 
         LOGGER.info("Starting email preparation...");
 
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            javaMailSender.send(mailMessage);
+            javaMailSender.send(createMailMessage(mail));
 
             LOGGER.info("Email has been sent.");
-        }
-        catch (MailException e)
-        {
-            LOGGER.error("Fail to process email sending: ", e.getMessage(),e);
+        } catch (MailException e) {
+            LOGGER.error("Fail to process email sending: ", e.getMessage(), e);
         }
     }
 
-    private SimpleMailMessage createMailMessage(final Mail mail){
+    private SimpleMailMessage createMailMessage(final Mail mail) {
+
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
+        if (mail.getToCC() != null) {
+            mailMessage.setCc(mail.getToCC());
+        }
+
         return mailMessage;
     }
 }
